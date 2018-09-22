@@ -6,10 +6,11 @@ function Book(title, author, isbn) {
 }
 
 // UI Constructor
-function UI() {}
+function UI() {
+}
 
 // Add Book To List
-UI.prototype.addBookToList = function(book){
+UI.prototype.addBookToList = function (book) {
     const list = document.getElementById('book-list');
     // Create tr element
     const row = document.createElement('tr');
@@ -22,17 +23,37 @@ UI.prototype.addBookToList = function(book){
   `;
 
     list.appendChild(row);
-}
+};
+
+//Show Alert
+UI.prototype.showAlert = function (massage, className) {
+    //Create div
+    const div = document.createElement('div');
+    //Add classes
+    div.className = `alert ${className}`;
+    //Add text
+    div.appendChild(document.createTextNode(message));
+    // Get parent
+    const container = document.querySelector('.container');
+    const form = document.querySelector('#book-form');
+    //Insert alert
+    container.insertBefore(div,form);
+    //Timeout 3 sec
+
+    setTimeout(function () {
+        document.querySelector('.alert').remove();
+    },3000);
+};
 
 // Clear Fields
-UI.prototype.clearFields = function() {
+UI.prototype.clearFields = function () {
     document.getElementById('title').value = '';
     document.getElementById('author').value = '';
     document.getElementById('isbn').value = '';
-}
+};
 
 // Event Listeners
-document.getElementById('book-form').addEventListener('submit', function(e){
+document.getElementById('book-form').addEventListener('submit', function (e) {
     // Get form values
     const title = document.getElementById('title').value,
         author = document.getElementById('author').value,
@@ -44,11 +65,18 @@ document.getElementById('book-form').addEventListener('submit', function(e){
     // Instantiate UI
     const ui = new UI();
 
-    // Add book to list
-    ui.addBookToList(book);
+    //Validate
+    if (title === '' || author === '' || isbn === '') {
+        //Error alert
+        ui.showAlert('Failed, fill all fields');
+    } else {
+        // Add book to list
+        ui.addBookToList(book);
 
-    // Clear fields
-    ui.clearFields();
+        // Clear fields
+        ui.clearFields();
+    }
+
 
     e.preventDefault();
 });
