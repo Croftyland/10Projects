@@ -2,29 +2,28 @@
 const github = new Github();
 const ui = new UI();
 
-// search input
+// Search input
+const searchUser = document.getElementById('searchUser');
 
-const searchUser = document.getElementById("searchUser");
-
-//Search input event listener
+// Search input event listener
 searchUser.addEventListener('keyup', (e) => {
-//Get input text
+    // Get input text
     const userText = e.target.value;
 
-    if (userText !== '') {
-//make hhtp call
+    if(userText !== ''){
+        // Make http call
         github.getUser(userText)
             .then(data => {
-              if(data.profile.message === 'Not found'){
-                  //show alert
+                if(data.profile.message === 'Not Found') {
+                    // Show alert
 
-              }  else {
-                  //show profile
-                  ui.showProfile(data.profile);
-              }
+                } else {
+                    // Show profile
+                    ui.showProfile(data.profile);
+                }
             })
-    } else{
-        //clear profile
-    }
+    } else {
+        // Clear profile
 
+    }
 });
