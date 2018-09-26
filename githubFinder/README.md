@@ -1,6 +1,6 @@
 # Github User Finder
 
-In this project was build Github Finder where we can search users by its user's name:
+In this project was build Github Finder where we can search users by its user's name
 
 # It gives us:
 
